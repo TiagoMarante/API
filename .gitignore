@@ -27,3 +27,4 @@ docker-compose.yml
 # Miscellaneous files
 *.env
 .DS_Store
+*.pyc

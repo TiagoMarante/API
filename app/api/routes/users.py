@@ -2,8 +2,12 @@ from fastapi import APIRouter
 from fastapi import Body
 from app.api.schemas.LoginSchema import LoginSchema
 from app.api.schemas.UserSchema import UserSchema
+from app.middlewares.auth_bearer import JWTBearer
 from app.middlewares.auth_handler import signJWT
+from app.middlewares.current_user import JWTUser, get_current_user
 from app.services.user_service import UserService
+from fastapi import APIRouter, Depends
+
 
 
 users_router = APIRouter()
@@ -23,10 +27,22 @@ def check_user(data: LoginSchema):
 
 @users_router.post("/user/signup", tags=["user"])
 def create_user(user: UserSchema = Body(...)):
-    result = user_service.create_user(user)
-    print(result)
-    users.append(user) # replace with db call, making sure to hash the password first
-    return signJWT(user.email)
+    try:
+        service_response = user_service.create_user(user)
+        return signJWT(service_response.email)
+    except:
+        return {"error": "Email exist"}
+    
+    
+@users_router.put("/user/update", dependencies=[Depends(JWTBearer())], tags=["user"])
+def create_user(user: LoginSchema = Body(...), current_user: JWTUser = Depends(get_current_user)):
+    try:
+        print(current_user)
+        service_response = user_service.update_user(user)
+        return signJWT(service_response.email)
+    except:
+        return {"error": "Email exist"}
+    
 
 
 @users_router.post("/user/login", tags=["user"])
