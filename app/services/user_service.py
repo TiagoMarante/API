@@ -43,7 +43,6 @@ class UserService:
 
     def get_user_by_attribute(self, attribute: str, value: str, user_type: Type[User]) -> Optional[User]:
         for user in users:
-            print(hasattr(user, attribute))
             if hasattr(user, attribute) and getattr(user, attribute) == value and isinstance(user, user_type):
                 return user
         return None

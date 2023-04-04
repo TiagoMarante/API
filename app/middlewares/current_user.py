@@ -16,14 +16,10 @@ class JWTUser:
         self.id = id
 
 async def get_current_user(token: HTTPAuthorizationCredentials = Depends(JWTBearer())) -> JWTUser:
-    print("teste")
     try:
         payload = decodeJWT(token)
-        print(payload)
-        idx = str(payload["user_id"])
-        print(idx)
-        user_id = uuid.UUID(idx)
-        return JWTUser(id=user_id)
+        id = str(payload["user_id"])
+        user_id = uuid.UUID(id)
+        return JWTUser(user_id)
     except (jwt.exceptions.DecodeError, jwt.exceptions.InvalidSignatureError):
-        print("error")
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")

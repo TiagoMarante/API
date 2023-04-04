@@ -29,7 +29,7 @@ def check_user(data: LoginSchema):
 def create_user(user: UserSchema = Body(...)):
     try:
         service_response = user_service.create_user(user)
-        return signJWT(service_response.email)
+        return signJWT(service_response.id)
     except:
         return {"error": "Email exist"}
     
@@ -37,9 +37,10 @@ def create_user(user: UserSchema = Body(...)):
 @users_router.put("/user/update", dependencies=[Depends(JWTBearer())], tags=["user"])
 def create_user(user: LoginSchema = Body(...), current_user: JWTUser = Depends(get_current_user)):
     try:
-        print(current_user)
+        current_user_id = current_user.id
+        print(current_user_id)
         service_response = user_service.update_user(user)
-        return signJWT(service_response.email)
+        return signJWT(service_response.id)
     except:
         return {"error": "Email exist"}
     
@@ -48,7 +49,7 @@ def create_user(user: LoginSchema = Body(...), current_user: JWTUser = Depends(g
 @users_router.post("/user/login", tags=["user"])
 def user_login(user: LoginSchema = Body(...)):
     if check_user(user):
-        return signJWT(user.email)
+        return signJWT(user.id)
     return {
         "error": "Wrong login details!"
     }
