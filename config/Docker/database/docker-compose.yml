@@ -7,7 +7,7 @@ services :
     environment:
       POSTGRES_USER: user1
       POSTGRES_PASSWORD: changeme
-      POSTGRES_DB: tododb
+      POSTGRES_DB: dev-fca
   admin:
     image: adminer
     restart: always
