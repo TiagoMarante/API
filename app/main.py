@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from app.core.config import configs
 from app.core.container import Container
-from app.api.routes import router as v1_routers
+from app.api.routes import routers as v1_routers
 from app.utils.class_object import singleton
 
 @singleton
@@ -35,7 +35,7 @@ class AppCreator:
         def root():
             return "service is working"
 
-        self.app.include_router(v1_routers, prefix=configs.API_V2_STR)
+        self.app.include_router(v1_routers, prefix=configs.API_V1_STR)
 
 
 app_creator = AppCreator()

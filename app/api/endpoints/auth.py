@@ -8,10 +8,7 @@ from app.schemas.user_schema import User
 
 from app.services.auth_service import AuthService
 
-router = APIRouter(
-    prefix="/auth",
-    tags=["auth"],
-)
+router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @router.post("/sign-in", response_model=SignInResponse)
