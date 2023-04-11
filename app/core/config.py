@@ -19,7 +19,7 @@ class Configs(BaseSettings):
     ENV_DATABASE_MAPPER: dict = {
         "prod": "fca",
         "stage": "stage-fca",
-        "dev": "dev-fca",
+        "dev": "mydb",
         "test": "test-fca",
     }
     DB_ENGINE_MAPPER: dict = {
@@ -47,6 +47,7 @@ class Configs(BaseSettings):
     DB_HOST: str = os.getenv("DB_HOST")
     DB_PORT: str = os.getenv("DB_PORT", "3306")
     DB_ENGINE: str = DB_ENGINE_MAPPER.get(DB, "postgresql")
+    SSL: str = os.getenv("DB_SSL")
 
     DATABASE_URI_FORMAT: str = "{db_engine}://{user}:{password}@{host}:{port}/{database}"
 
@@ -56,8 +57,15 @@ class Configs(BaseSettings):
         password=DB_PASSWORD,
         host=DB_HOST,
         port=DB_PORT,
-        database=ENV_DATABASE_MAPPER[ENV],
+        database=ENV_DATABASE_MAPPER[ENV]
     )
+    
+    if SSL != "":
+        DATABASE_URI += "?ssl_ca=" + SSL
+        
+    print(DATABASE_URI)
+    
+    
 
     # find query
     PAGE = 1

@@ -10,6 +10,8 @@ services :
       POSTGRES_DB: dev-fca
   admin:
     image: adminer
+    environment:
+          - ADMINER_DESIGN=pepa-linha
     restart: always
     depends_on: 
       - db
