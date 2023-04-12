@@ -30,3 +30,4 @@ docker-compose.yml
 *.pyc 
 *__pycache__/
 migrations/versions/
+.venv

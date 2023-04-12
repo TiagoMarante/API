@@ -60,13 +60,9 @@ class Configs(BaseSettings):
         database=ENV_DATABASE_MAPPER[ENV]
     )
     
-    if SSL != "":
-        DATABASE_URI += "?ssl_ca=" + SSL
+    if SSL is not None:
+        DATABASE_URI += "?ssl_ca=" + str(SSL)
         
-    print(DATABASE_URI)
-    
-    
-
     # find query
     PAGE = 1
     PAGE_SIZE = 20
