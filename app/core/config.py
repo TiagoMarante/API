@@ -59,9 +59,10 @@ class Configs(BaseSettings):
         port=DB_PORT,
         database=ENV_DATABASE_MAPPER[ENV]
     )
+
     
     if SSL is not None:
-        DATABASE_URI += "?ssl_ca=" + str(SSL)
+        DATABASE_URI += "?ssl_ca=" + str(SSL).replace('\\','/')
         
     # find query
     PAGE = 1

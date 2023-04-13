@@ -17,8 +17,12 @@ def create_access_token(subject: dict, expires_delta: timedelta = None):
         expire = datetime.utcnow() + expires_delta
     else:
         expire = datetime.utcnow() + timedelta(minutes=configs.ACCESS_TOKEN_EXPIRE_MINUTES)
+    print("boas")
     payload = {"exp": expire, **subject}
-    encoded_jwt = jwt.encode(payload, configs.SECRET_KEY, algorithm=ALGORITHM)
+    payload = payload.__str__()
+    encoded_jwt = jwt.encode(str(payload), configs.SECRET_KEY, algorithm=ALGORITHM)
+    print("errorssss")
+    print(encoded_jwt)
     expiration_datetime = expire.strftime(configs.DATETIME_FORMAT)
     return encoded_jwt, expiration_datetime
 

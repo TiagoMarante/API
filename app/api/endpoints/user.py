@@ -1,3 +1,4 @@
+from uuid import UUID
 from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends
 
@@ -24,7 +25,7 @@ async def get_user_list(
 @router.get("/{user_id}", response_model=User)
 @inject
 async def get_user(
-    user_id: int,
+    user_id: UUID,
     service: UserService = Depends(Provide[Container.user_service]),
     current_user: User = Depends(get_current_super_user),
 ):
@@ -44,7 +45,7 @@ async def create_user(
 @router.patch("/{user_id}", response_model=User)
 @inject
 async def update_user(
-    user_id: int,
+    user_id: UUID,
     user: UpsertUser,
     service: UserService = Depends(Provide[Container.user_service]),
     current_user: User = Depends(get_current_super_user),
@@ -55,7 +56,7 @@ async def update_user(
 @router.delete("/{user_id}", response_model=Blank)
 @inject
 async def delete_user(
-    user_id: int,
+    user_id: UUID,
     service: UserService = Depends(Provide[Container.user_service]),
     current_user: User = Depends(get_current_super_user),
 ):

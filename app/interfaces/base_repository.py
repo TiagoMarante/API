@@ -6,7 +6,7 @@ class IBaseRepository(ABC):
         pass
 
     @abstractmethod
-    def read_by_id(self, id: int, eager=False):
+    def read_by_id(self, id, eager=False):
         pass
 
     @abstractmethod
@@ -14,17 +14,17 @@ class IBaseRepository(ABC):
         pass
 
     @abstractmethod
-    def update(self, id: int, schema):
+    def update(self, id, schema):
         pass
 
     @abstractmethod
-    def update_attr(self, id: int, column: str, value):
+    def update_attr(self, id, column: str, value):
         pass
 
     @abstractmethod
-    def whole_update(self, id: int, schema):
+    def whole_update(self, id, schema):
         pass
 
     @abstractmethod
-    def delete_by_id(self, id: int):
+    def delete_by_id(self, id):
         pass
