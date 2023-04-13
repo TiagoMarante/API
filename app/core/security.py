@@ -1,28 +1,38 @@
+import json
 from datetime import datetime, timedelta
 
 from fastapi import Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import jwt
 from passlib.context import CryptContext
-
 from app.core.config import configs
 from app.core.exceptions import AuthError
+from datetime import datetime
+from uuid import UUID
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 ALGORITHM = "HS256"
 
 
+
+
+class CustomEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+        elif isinstance(obj, UUID):
+            return str(obj)
+        return super().default(obj)
+    
+    
 def create_access_token(subject: dict, expires_delta: timedelta = None):
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
         expire = datetime.utcnow() + timedelta(minutes=configs.ACCESS_TOKEN_EXPIRE_MINUTES)
-    print("boas")
-    payload = {"exp": expire, **subject}
-    payload = payload.__str__()
-    encoded_jwt = jwt.encode(str(payload), configs.SECRET_KEY, algorithm=ALGORITHM)
-    print("errorssss")
-    print(encoded_jwt)
+        
+    lixo = json.loads(str(json.dumps(subject, cls=CustomEncoder)))
+    encoded_jwt = jwt.encode(lixo, configs.SECRET_KEY, algorithm=ALGORITHM)
     expiration_datetime = expire.strftime(configs.DATETIME_FORMAT)
     return encoded_jwt, expiration_datetime
 
