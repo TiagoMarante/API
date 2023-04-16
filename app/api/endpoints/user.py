@@ -3,7 +3,6 @@ from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends
 
 from app.core.container import Container
-from app.core.dependencies import get_current_super_user
 from app.core.security import JWTBearer
 from app.schemas.base_schema import Blank
 from app.schemas.user_schema import FindUser, FindUserResult, UpsertUser, User
@@ -16,8 +15,7 @@ router = APIRouter(prefix="/user", tags=["user"], dependencies=[Depends(JWTBeare
 @inject
 async def get_user_list(
     find_query: FindUser = Depends(),
-    service: UserService = Depends(Provide[Container.user_service]),
-    current_user: User = Depends(get_current_super_user),
+    service: UserService = Depends(Provide[Container.user_service])
 ):
     return service.get_list(find_query)
 
@@ -26,8 +24,7 @@ async def get_user_list(
 @inject
 async def get_user(
     user_id: UUID,
-    service: UserService = Depends(Provide[Container.user_service]),
-    current_user: User = Depends(get_current_super_user),
+    service: UserService = Depends(Provide[Container.user_service])
 ):
     return service.get_by_id(user_id)
 
@@ -36,8 +33,7 @@ async def get_user(
 @inject
 async def create_user(
     user: UpsertUser,
-    service: UserService = Depends(Provide[Container.user_service]),
-    current_user: User = Depends(get_current_super_user),
+    service: UserService = Depends(Provide[Container.user_service])
 ):
     return service.add(user)
 
@@ -47,8 +43,7 @@ async def create_user(
 async def update_user(
     user_id: UUID,
     user: UpsertUser,
-    service: UserService = Depends(Provide[Container.user_service]),
-    current_user: User = Depends(get_current_super_user),
+    service: UserService = Depends(Provide[Container.user_service])
 ):
     return service.patch(user_id, user)
 
@@ -57,7 +52,6 @@ async def update_user(
 @inject
 async def delete_user(
     user_id: UUID,
-    service: UserService = Depends(Provide[Container.user_service]),
-    current_user: User = Depends(get_current_super_user),
+    service: UserService = Depends(Provide[Container.user_service])
 ):
     return service.remove_by_id(user_id)

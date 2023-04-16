@@ -21,7 +21,6 @@ class Payload(BaseModel):
     id: UUID
     email: str
     name: str
-    is_superuser: bool
 
 
 class SignInResponse(BaseModel):
