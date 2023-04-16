@@ -30,9 +30,9 @@ def create_access_token(subject: dict, expires_delta: timedelta = None):
         expire = datetime.utcnow() + expires_delta
     else:
         expire = datetime.utcnow() + timedelta(minutes=configs.ACCESS_TOKEN_EXPIRE_MINUTES)
-        
-    lixo = json.loads(str(json.dumps(subject, cls=CustomEncoder)))
-    encoded_jwt = jwt.encode(lixo, configs.SECRET_KEY, algorithm=ALGORITHM)
+    subject = json.loads(str(json.dumps(subject, cls=CustomEncoder)))
+    payload = {"exp": expire, **subject}
+    encoded_jwt = jwt.encode(payload, configs.SECRET_KEY, algorithm=ALGORITHM)
     expiration_datetime = expire.strftime(configs.DATETIME_FORMAT)
     return encoded_jwt, expiration_datetime
 

@@ -35,7 +35,7 @@ class Configs(BaseSettings):
 
     # auth
     SECRET_KEY: str = os.getenv("SECRET_KEY", "")
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 30  # 60 minutes * 24 hours * 30 days = 30 days
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 35  # 35 minutes 
 
     # CORS
     BACKEND_CORS_ORIGINS: List[str] = ["*"]

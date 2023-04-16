@@ -13,7 +13,8 @@ class Container(containers.DeclarativeContainer):
     wiring_config = containers.WiringConfiguration(
         modules=[
             "app.api.endpoints.auth",
-            "app.api.endpoints.user"
+            "app.api.endpoints.user",
+            "app.core.dependencies"
         ]
 
         #modules=[
