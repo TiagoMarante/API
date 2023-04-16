@@ -13,6 +13,9 @@ class BaseUser(BaseModel):
 
     class Config:
         orm_mode = True
+        fields = {
+            "id": {"alias": "id", "title": "ID"}
+        }
 
 
 class BaseUserWithPassword(BaseUser):
@@ -30,6 +33,10 @@ class FindUser(FindBase, BaseUser, metaclass=AllOptional):
 
 class UpsertUser(BaseUser, metaclass=AllOptional):
     ...
+
+
+class CreateUser(BaseUser, metaclass=AllOptional):
+    password: str
 
 
 class FindUserResult(BaseModel):

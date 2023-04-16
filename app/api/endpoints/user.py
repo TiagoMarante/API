@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends
 from app.core.container import Container
 from app.core.security import JWTBearer
 from app.schemas.base_schema import Blank
-from app.schemas.user_schema import FindUser, FindUserResult, UpsertUser, User
+from app.schemas.user_schema import CreateUser, FindUser, FindUserResult, UpsertUser, User
 from app.services.user_service import UserService
 
 router = APIRouter(prefix="/user", tags=["user"], dependencies=[Depends(JWTBearer())])
@@ -32,7 +32,7 @@ async def get_user(
 @router.post("", response_model=User)
 @inject
 async def create_user(
-    user: UpsertUser,
+    user: CreateUser,
     service: UserService = Depends(Provide[Container.user_service])
 ):
     return service.add(user)
