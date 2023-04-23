@@ -2,7 +2,7 @@ from datetime import timedelta
 from typing import List
 
 from app.core.config import configs
-from app.core.exceptions import AuthError
+from app.core.exceptions import AuthError, DuplicatedError
 from app.core.security import create_access_token, get_password_hash, verify_password
 from app.models.user_model import User
 from app.repositories.user_repository import UserRepository
@@ -48,6 +48,9 @@ class AuthService(BaseService):
     def sign_up(self, user_info: SignUp):
         user = User(**user_info.dict(exclude_none=True))
         user.password = get_password_hash(user_info.password)
-        created_user = self.user_repository.create(user)
+        try:
+            created_user = self.user_repository.create(user)
+        except:
+            raise DuplicatedError(detail=f"Error Creating")
         delattr(created_user, "password")
         return created_user

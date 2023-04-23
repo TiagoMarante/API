@@ -1,3 +1,6 @@
+from app.core.exceptions import DuplicatedError, NotFoundError
+
+
 class BaseService:
     def __init__(self, repository) -> None:
         self._repository = repository
@@ -6,10 +9,16 @@ class BaseService:
         return self._repository.read_by_options(schema)
 
     def get_by_id(self, id):
-        return self._repository.read_by_id(id)
+        try:
+            return self._repository.read_by_id(id)
+        except:
+            raise NotFoundError(detail=f"not found id : {id}")
 
     def add(self, schema):
-        return self._repository.create(schema)
+        try:
+            return self._repository.create(schema)
+        except:
+            raise DuplicatedError(detail=f"error creating")
 
     def patch(self, id, schema):
         return self._repository.update(id, schema)
@@ -21,4 +30,7 @@ class BaseService:
         return self._repository.whole_update(id, schema)
 
     def remove_by_id(self, id):
-        return self._repository.delete_by_id(id)
+        try:
+            return self._repository.delete_by_id(id)
+        except:
+            raise NotFoundError(detail=f"not found id : {id}")

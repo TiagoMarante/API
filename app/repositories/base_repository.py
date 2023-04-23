@@ -54,7 +54,7 @@ class BaseRepository:
                     query = query.options(joinedload(getattr(self.model, eager)))
             query = query.filter(self.model.id == id).first()
             if not query:
-                raise NotFoundError(detail=f"not found id : {id}")
+                raise
             return query
 
     def create(self, schema):
@@ -64,8 +64,8 @@ class BaseRepository:
                 session.add(query)
                 session.commit()
                 session.refresh(query)
-            except IntegrityError as e:
-                raise DuplicatedError(detail=str(e.orig))
+            except:
+                raise
             return query
 
     def update(self, id, schema):
@@ -90,6 +90,6 @@ class BaseRepository:
         with self.session_factory() as session:
             query = session.query(self.model).filter(self.model.id == id).first()
             if not query:
-                raise NotFoundError(detail=f"not found id : {id}")
+                raise
             session.delete(query)
             session.commit()
