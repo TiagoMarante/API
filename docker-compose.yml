@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  api:
+    build: .
+    working_dir: /App
+    #entrypoint: [ "dotnet" , "Catalog.dll" ]
+    command: bash -c "dotnet Catalog.dll "
+    volumes:
+      - .:/api
+    ports:
+      - "3000:80"
