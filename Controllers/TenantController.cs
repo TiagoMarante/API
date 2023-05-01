@@ -1,4 +1,6 @@
 using Catalog.Dtos;
+using Catalog.Dtos.Create;
+using Catalog.Dtos.Response.Tenant;
 using Catalog.Entities;
 using Catalog.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -32,10 +34,10 @@ public class TenantController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<OryonContentResponse<ClientResponse>>> CreateTenant(CreateClientDto clientDto)
+    public async Task<ActionResult<OryonContentResponse<TenantResponse>>> CreateTenant(CreateTenantDto tenantDto)
     {
-        var data = await _tenantServices.Add(clientDto);
-        return data.Data is null ? StatusCode(500) : Ok(data);
+        var data = await _tenantServices.Add(tenantDto);
+        return data.Data is null ? StatusCode(414, data) : Ok(data);
     }
 
     [HttpPut("{id:guid}")]

@@ -1,5 +1,6 @@
-﻿using Catalog.Entities;
-using Catalog.Interfaces;
+﻿using System.Linq.Expressions;
+using Catalog.Entities;
+using Catalog.Interfaces.RepositoryInterfaces;
 using Catalog.Settings;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -26,6 +27,12 @@ public class BaseBaseRepository<TEntity> : IBaseRepository<TEntity> where TEntit
     public async Task<TEntity?> Get(Guid id)
     {
         var data = await DataCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+        return data;
+    }
+
+    public async Task<TEntity?> Find(Expression<Func<TEntity,bool>> filter)
+    {
+        var data = await DataCollection.Find(filter).FirstOrDefaultAsync();
         return data;
     }
 

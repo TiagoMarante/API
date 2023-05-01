@@ -4,6 +4,8 @@ using Catalog.Interfaces.ServiceInterfaces;
 using Catalog.Middlewares;
 using Catalog.Repositories.Clients;
 using Catalog.Repositories.Products;
+using Catalog.Repositories.Tenants;
+using Catalog.Repositories.Zones;
 using Catalog.Services;
 using Catalog.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-var policyName = "_myAllowSpecificOrigins";
+const string policyName = "_myAllowSpecificOrigins";
 
 
 // Add services to the container.
@@ -24,13 +26,16 @@ builder.Services.AddSingleton<IClientServices, ClientService>();
 builder.Services.AddSingleton<IClientRepository, ClientsInMemRepository>();
 // ------------------------------ Zone ------------------------------------------//
 builder.Services.AddSingleton<IZoneServices, ZoneService>();
-builder.Services.AddSingleton<IZonesRepository, ZonesInMemRepository>();
+builder.Services.AddSingleton<IZonesRepository, ZonesRepository>();
 // ------------------------------ Products ------------------------------------------//
 builder.Services.AddSingleton<IProductServices, ProductService>();
 builder.Services.AddSingleton<IProductRepository, ProductsInMemRepository>();
 // ------------------------------ Products ------------------------------------------//
 builder.Services.AddSingleton<IOrderServices, OrdersService>();
 builder.Services.AddSingleton<IOrdersRepository, OrdersInMemRepository>();
+// ------------------------------ Tenant ------------------------------------------//
+builder.Services.AddSingleton<ITenantServices, TenantService>();
+builder.Services.AddSingleton<ITenantRepository, TenantRepository>();
 
 
 builder.Services.AddControllers();

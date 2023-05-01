@@ -15,7 +15,8 @@ public abstract class MongoSettings<TEntity>
 
         var mongoDatabase = mongoClient.GetDatabase(
             dataStoreDatabaseSettings.Value.DatabaseName);
-
+        
+        //Make this dynamic and good
         dataCollection = collection switch
         {
             "Items" => mongoDatabase.GetCollection<TEntity>(dataStoreDatabaseSettings.Value.ItemsCollectionName),
@@ -24,6 +25,8 @@ public abstract class MongoSettings<TEntity>
             "Zones" => mongoDatabase.GetCollection<TEntity>(dataStoreDatabaseSettings.Value.ZonesCollectionName),
             "Products" => mongoDatabase.GetCollection<TEntity>(dataStoreDatabaseSettings.Value.ProductsCollectionName),
             "Orders" => mongoDatabase.GetCollection<TEntity>(dataStoreDatabaseSettings.Value.OrdersCollectionName),
+            "Tenants" => mongoDatabase.GetCollection<TEntity>(dataStoreDatabaseSettings.Value.TenantsCollectionName),
+
             _ => dataCollection
         };
 

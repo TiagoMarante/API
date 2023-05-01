@@ -4,7 +4,7 @@ using Catalog.Repositories.Shared;
 using Catalog.Settings;
 using Microsoft.Extensions.Options;
 
-namespace Catalog.Repositories.Clients;
+namespace Catalog.Repositories.Zones;
 
 public class ZonesRepository : BaseBaseRepository<Zone>, IZonesRepository
 {

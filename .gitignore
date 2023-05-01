@@ -56,3 +56,7 @@ Thumbs.db
 .vscode/
 **/Migrations/
 UnitTests/Folder.DotSettings.user
+
+
+# app settings
+appsettings.json

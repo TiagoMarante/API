@@ -1,5 +1,6 @@
-﻿using Catalog.Entities;
-using Catalog.Interfaces;
+﻿using System.Linq.Expressions;
+using Catalog.Entities;
+using Catalog.Interfaces.RepositoryInterfaces;
 
 namespace Catalog.Repositories.Shared;
 
@@ -8,6 +9,7 @@ public class InMemEntityBaseRepository<TEntity> : IBaseRepository<TEntity> where
     private List<TEntity> Data { get; } = new()
     {
     };
+
 
     public Task<TEntity?> Add(TEntity obj)
     {
@@ -26,6 +28,12 @@ public class InMemEntityBaseRepository<TEntity> : IBaseRepository<TEntity> where
     {
         var item = Data.SingleOrDefault(elem => elem.Id == id);
         return Task.FromResult(item);
+    }
+
+    public Task<TEntity?> Find(Expression<Func<TEntity, bool>> filter)
+    {
+        var items = Data.AsEnumerable().Where(filter.Compile()).FirstOrDefault();
+        return Task.FromResult(items);
     }
 
     public Task<List<TEntity>> GetAll()
