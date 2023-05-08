@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace Catalog.Repositories.Zones;
 
-public class ZonesRepository : BaseBaseRepository<Zone>, IZonesRepository
+public class ZonesRepository : BaseRepository<Zone>, IZonesRepository
 {
     public ZonesRepository(IOptions<MongoDbSettings> dataStoreDatabaseSettings) : 
         base(dataStoreDatabaseSettings, dataStoreDatabaseSettings.Value.ZonesCollectionName)

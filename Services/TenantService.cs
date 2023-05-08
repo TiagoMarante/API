@@ -43,8 +43,10 @@ public class TenantService : ITenantServices
         try
         {
             //validate if exist with same name
-            var tenantDto = (CreateTenantDto) dto;
+            var tenantDto = (CreateTenantDto)dto;
             var x = await _tenantRepository.Find(x => x.Name == tenantDto.TenantName);
+            //nested list var y = await _tenantRepository.Find(x => x.Users.Any(x => x.Id.ToString() == tenantDto.TenantName));
+
             if (x != null) throw new ArgumentException("Tenant with that name exist");
 
             var newTenant = new Tenant((CreateTenantDto)dto);

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace Catalog.Repositories.Tenants;
 
-public class TenantRepository : BaseBaseRepository<Tenant>, ITenantRepository
+public class TenantRepository : BaseRepository<Tenant>, ITenantRepository
 {
     public TenantRepository(IOptions<MongoDbSettings> dataStoreDatabaseSettings) :
         base(dataStoreDatabaseSettings, dataStoreDatabaseSettings.Value.TenantsCollectionName)

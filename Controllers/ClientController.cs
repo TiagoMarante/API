@@ -1,7 +1,6 @@
 using Catalog.Dtos;
 using Catalog.Entities;
 using Catalog.Interfaces.ServiceInterfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.Controllers;
@@ -19,7 +18,7 @@ public class ClientController : ControllerBase
         _clientServices = clientServices;
     }
 
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<OryonContentResponse<List<ClientResponse>>>> GetClients()
     {

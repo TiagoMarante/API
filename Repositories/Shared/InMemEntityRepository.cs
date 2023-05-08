@@ -43,9 +43,9 @@ public class InMemEntityBaseRepository<TEntity> : IBaseRepository<TEntity> where
 
     public async Task Update(TEntity obj)
     {
-        var userDb = await Get(obj.Id);
+        var item = await Get(obj.Id);
 
-        if (userDb != null) Data.Remove(userDb);
+        if (item != null) Data.Remove(item);
         Data.Add(obj);
     }
 }

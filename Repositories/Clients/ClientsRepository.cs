@@ -7,7 +7,7 @@ using MongoDB.Driver;
 
 namespace Catalog.Repositories.Clients;
 
-public class ClientsRepository : BaseBaseRepository<Client>, IClientRepository
+public class ClientsRepository : BaseRepository<Client>, IClientRepository
 {
     // In case to build custom methods for repository
     private readonly IMongoCollection<Client> _clientsCollection;

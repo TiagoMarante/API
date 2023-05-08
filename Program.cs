@@ -3,7 +3,6 @@ using Catalog.Interfaces.RepositoryInterfaces;
 using Catalog.Interfaces.ServiceInterfaces;
 using Catalog.Middlewares;
 using Catalog.Repositories.Clients;
-using Catalog.Repositories.Products;
 using Catalog.Repositories.Tenants;
 using Catalog.Repositories.Zones;
 using Catalog.Services;
@@ -23,16 +22,16 @@ builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("Mo
 // Dependency Injection
 // ------------------------------ Client ------------------------------------------//
 builder.Services.AddSingleton<IClientServices, ClientService>();
-builder.Services.AddSingleton<IClientRepository, ClientsInMemRepository>();
+builder.Services.AddSingleton<IClientRepository, ClientsRepository>();
 // ------------------------------ Zone ------------------------------------------//
 builder.Services.AddSingleton<IZoneServices, ZoneService>();
 builder.Services.AddSingleton<IZonesRepository, ZonesRepository>();
 // ------------------------------ Products ------------------------------------------//
 builder.Services.AddSingleton<IProductServices, ProductService>();
-builder.Services.AddSingleton<IProductRepository, ProductsInMemRepository>();
+builder.Services.AddSingleton<IProductRepository, ProductsRepository>();
 // ------------------------------ Products ------------------------------------------//
 builder.Services.AddSingleton<IOrderServices, OrdersService>();
-builder.Services.AddSingleton<IOrdersRepository, OrdersInMemRepository>();
+builder.Services.AddSingleton<IOrdersRepository, OrdersRepository>();
 // ------------------------------ Tenant ------------------------------------------//
 builder.Services.AddSingleton<ITenantServices, TenantService>();
 builder.Services.AddSingleton<ITenantRepository, TenantRepository>();

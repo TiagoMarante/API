@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace Catalog.Repositories.Clients;
 
-public class OrdersRepository : BaseBaseRepository<Order>, IOrdersRepository
+public class OrdersRepository : BaseRepository<Order>, IOrdersRepository
 {
     public OrdersRepository(IOptions<MongoDbSettings> dataStoreDatabaseSettings) : 
         base(dataStoreDatabaseSettings, dataStoreDatabaseSettings.Value.OrdersCollectionName)

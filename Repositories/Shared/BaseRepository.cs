@@ -7,12 +7,12 @@ using MongoDB.Driver;
 
 namespace Catalog.Repositories.Shared;
 
-public class BaseBaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : Entity
+public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : Entity
 {
     protected IMongoCollection<TEntity> DataCollection { get; }
 
 
-    protected BaseBaseRepository(IOptions<MongoDbSettings> dataStoreDatabaseSettings, string collection)
+    protected BaseRepository(IOptions<MongoDbSettings> dataStoreDatabaseSettings, string collection)
     {
         DataCollection = MongoSettings<TEntity>.GetProperCollection(dataStoreDatabaseSettings, collection);
     }
