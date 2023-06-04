@@ -8,15 +8,10 @@ public class CreateTenantDto
 
     [Required] public string TenantDescription { get; set; }
 
-    [Url] public string Website { get; set; }
 
-    [Url] public string LogoUrl { get; set; }
-
-    public CreateTenantDto(string tenantName, string tenantDescription, string website, string logoUrl)
+    public CreateTenantDto(string tenantName, string tenantDescription)
     {
         TenantName = tenantName;
         TenantDescription = tenantDescription;
-        Website = website;
-        LogoUrl = logoUrl;
     }
 }
