@@ -11,7 +11,7 @@ public class TenantService : ITenantServices
 {
     private readonly ITenantRepository _tenantRepository;
 
-    public TenantService(ITenantRepository tenantRepository, IZonesRepository zoneRepository)
+    public TenantService(ITenantRepository tenantRepository)
     {
         _tenantRepository = tenantRepository;
     }

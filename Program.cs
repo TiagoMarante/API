@@ -2,9 +2,7 @@ using System.Text;
 using Catalog.Interfaces.RepositoryInterfaces;
 using Catalog.Interfaces.ServiceInterfaces;
 using Catalog.Middlewares;
-using Catalog.Repositories.Clients;
 using Catalog.Repositories.Tenants;
-using Catalog.Repositories.Zones;
 using Catalog.Services;
 using Catalog.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,21 +18,9 @@ const string policyName = "_myAllowSpecificOrigins";
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDb"));
 
 // Dependency Injection
-// ------------------------------ Client ------------------------------------------//
-builder.Services.AddSingleton<IClientServices, ClientService>();
-builder.Services.AddSingleton<IClientRepository, ClientsRepository>();
-// ------------------------------ Zone ------------------------------------------//
-builder.Services.AddSingleton<IZoneServices, ZoneService>();
-builder.Services.AddSingleton<IZonesRepository, ZonesRepository>();
-// ------------------------------ Products ------------------------------------------//
-builder.Services.AddSingleton<IProductServices, ProductService>();
-builder.Services.AddSingleton<IProductRepository, ProductsRepository>();
-// ------------------------------ Products ------------------------------------------//
-builder.Services.AddSingleton<IOrderServices, OrdersService>();
-builder.Services.AddSingleton<IOrdersRepository, OrdersRepository>();
 // ------------------------------ Tenant ------------------------------------------//
 builder.Services.AddSingleton<ITenantServices, TenantService>();
-builder.Services.AddSingleton<ITenantRepository, TenantRepository>();
+builder.Services.AddSingleton<ITenantRepository, TenantInMemRepository>();
 
 
 builder.Services.AddControllers();

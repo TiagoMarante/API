@@ -7,10 +7,6 @@ namespace Catalog.Services;
 
 public class BaseService : IBaseService<Client>
 {
-
-    private readonly IZonesRepository _zoneRepository;
-
-
     public Task<OryonContentResponse<List<Client>>> GetAll()
     {
         throw new NotImplementedException();
